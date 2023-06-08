@@ -45,7 +45,7 @@ export const LoginScreen = () => {
                   onChangeText={setLogin}
                   value={login}
                   placeholder="Логін"
-                  keyboardType="default"
+                  keyboardType="url"
                   style={{
                     ...LoginInput.input,
                     borderColor:
@@ -65,7 +65,7 @@ export const LoginScreen = () => {
                   value={password}
                   placeholder="Пароль"
                   secureTextEntry={true}
-                  keyboardType="default"
+                  keyboardType="url"
                   type="password"
                   style={{
                     ...LoginInput.input,
@@ -83,13 +83,12 @@ export const LoginScreen = () => {
                 <Button>
                   <TextButton>Увійти</TextButton>
                 </Button>
+                <LoginButton>
+                  <TextLogin>Немає акаунту? Зареєструватися</TextLogin>
+                </LoginButton>
               </KeyboardAvoidingView>
             </LoginBox>
           </TouchableWithoutFeedback>
-
-          <LoginButton>
-            <TextLogin>Немає акаунту? Зареєструватися</TextLogin>
-          </LoginButton>
         </Login>
       </BackgroundImage>
     </Background>
@@ -114,14 +113,20 @@ const Login = styled.View`
   padding-left: 16px;
   padding-right: 16px;
   width: 100%;
-  height: 67%;
+  height: 61%;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   background-color: #fff;
 `;
 
 const LoginText = styled.Text`
-  margin-top: 50px;
+  width: auto;
+
+  top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 32px;
+  margin-bottom: 33px;
 
   font-family: "Roboto";
   font-style: normal;
@@ -134,24 +139,20 @@ const LoginText = styled.Text`
 `;
 
 const LoginBox = styled.View`
-  margin-top: 32px;
   /* flex: 1; */
   background-color: #fff;
-  align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 25px;
+  /* padding-bottom: -5px; */
+  top: -10px;
+
+  /* justify-content: flex-end; */
 `;
 
 const LoginInput = styled.TextInput`
   height: 50px;
-  width: 343px;
-  margin-bottom: 16px;
-  border-width: 1px;
   padding: 16px;
 
-  /* left: 0px;
-  right: 0px; */
-  top: -4px;
+  margin-bottom: 16px;
+  border-width: 1px;
 
   font-family: "Roboto";
   font-style: normal;
@@ -174,15 +175,19 @@ const TextShow = styled.Text`
   font-size: 16px;
   line-height: 19px;
 
-  top: -55px;
-  left: 255px;
-  text-align: center;
+  margin-left: auto;
+  margin-right: 16px;
+  padding-top: 16px;
+
+  top: -65px;
+  right: 0px;
+  height: 50px;
 
   color: #1b4371;
 `;
 const Button = styled.Pressable`
   margin-top: 43px;
-  /* margin-bottom: 16px; */
+  margin-bottom: 16px;
 
   height: 50px;
   align-items: center;
@@ -192,7 +197,7 @@ const Button = styled.Pressable`
   border-top-right-radius: 100px;
   border-bottom-left-radius: 100px;
   border-bottom-right-radius: 100px;
-  top: -39px;
+  top: -66px;
 
   background-color: #ff6c00;
 `;
@@ -210,21 +215,19 @@ const TextButton = styled.Text`
 `;
 
 const LoginButton = styled.Pressable`
-  top: -63px;
+  top: -68px;
   align-items: center;
   justify-content: center;
 `;
 
 const TextLogin = styled.Text`
-  margin-top: 16px;
-
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
   align-items: center;
   font-size: 16px;
   line-height: 19px;
-  width: 252px;
+  width: auto;
 
   color: #1b4371;
 `;

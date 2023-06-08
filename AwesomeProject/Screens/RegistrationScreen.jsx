@@ -6,6 +6,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  ScrollView,
 } from "react-native";
 import styled from "styled-components/native";
 import { AntDesign } from "@expo/vector-icons";
@@ -54,7 +55,7 @@ export const RegistrationScreen = () => {
                   onChangeText={setLogin}
                   value={login}
                   placeholder="Логін"
-                  keyboardType="default"
+                  keyboardType="url"
                   style={{
                     ...RegistrationInput.input,
                     borderColor:
@@ -72,7 +73,7 @@ export const RegistrationScreen = () => {
                   onChangeText={setEmail}
                   value={email}
                   placeholder="Адреса електронної пошти"
-                  keyboardType="email-address"
+                  keyboardType="url"
                   style={{
                     ...RegistrationInput.input,
                     borderColor:
@@ -91,7 +92,7 @@ export const RegistrationScreen = () => {
                   value={password}
                   placeholder="Пароль"
                   secureTextEntry={true}
-                  keyboardType="default"
+                  keyboardType="url"
                   type="password"
                   style={{
                     ...RegistrationInput.input,
@@ -109,13 +110,12 @@ export const RegistrationScreen = () => {
                 <Button>
                   <TextButton>Зареєструватися</TextButton>
                 </Button>
+                <LoginButton>
+                  <TextLogin>Вже є акаунт? Увійти</TextLogin>
+                </LoginButton>
               </KeyboardAvoidingView>
             </RegistrationBox>
           </TouchableWithoutFeedback>
-
-          <LoginButton>
-            <TextLogin>Вже є акаунт? Увійти</TextLogin>
-          </LoginButton>
         </Registration>
       </BackgroundImage>
     </Background>
@@ -140,7 +140,7 @@ const Registration = styled.View`
   padding-left: 16px;
   padding-right: 16px;
   width: 100%;
-  height: 67%;
+  height: 78%;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   background-color: #fff;
@@ -149,8 +149,8 @@ const Registration = styled.View`
 const RegistrationPhoto = styled.View`
   width: 132px;
   height: 120px;
-
-  left: 112px;
+  margin-left: auto;
+  margin-right: auto;
   top: -60px;
 `;
 
@@ -173,9 +173,10 @@ const AddIcon = styled.View`
 
 const RegistrationText = styled.Text`
   width: auto;
-  left: 0px;
-  right: 0px;
+
   top: -60px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 32px;
   margin-bottom: 33px;
 
@@ -192,22 +193,18 @@ const RegistrationText = styled.Text`
 const RegistrationBox = styled.View`
   /* flex: 1; */
   background-color: #fff;
-  align-items: center;
+  /* padding-bottom: -5px; */
+  top: -59px;
+
   justify-content: flex-end;
-  padding-bottom: 25px;
-  top: -60px;
 `;
 
 const RegistrationInput = styled.TextInput`
   height: 50px;
-  width: 343px;
-  margin-bottom: 16px;
-  border-width: 1px;
   padding: 16px;
 
-  /* left: 0px;
-  right: 0px; */
-  top: -4px;
+  margin-bottom: 16px;
+  border-width: 1px;
 
   font-family: "Roboto";
   font-style: normal;
@@ -230,9 +227,13 @@ const TextShow = styled.Text`
   font-size: 16px;
   line-height: 19px;
 
-  top: -55px;
-  left: 255px;
-  text-align: center;
+  margin-left: auto;
+  margin-right: 16px;
+  padding-top: 16px;
+
+  top: -65px;
+  right: 0px;
+  height: 50px;
 
   color: #1b4371;
 `;
@@ -248,7 +249,7 @@ const Button = styled.Pressable`
   border-top-right-radius: 100px;
   border-bottom-left-radius: 100px;
   border-bottom-right-radius: 100px;
-  top: -39px;
+  top: -66px;
 
   background-color: #ff6c00;
 `;
@@ -266,7 +267,7 @@ const TextButton = styled.Text`
 `;
 
 const LoginButton = styled.Pressable`
-  top: -126px;
+  top: -69px;
   align-items: center;
   justify-content: center;
 `;
