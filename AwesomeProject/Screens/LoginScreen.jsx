@@ -6,6 +6,8 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
+  TouchableOpacity,
 } from "react-native";
 import styled from "styled-components/native";
 
@@ -19,8 +21,13 @@ export const LoginScreen = () => {
   const [login, setLogin] = useState(initialState.login);
   const [password, setPassword] = useState(initialState.password);
   const [focusedInput, setFocusedInput] = useState();
+  const [hidePassword, setHidePassword] = useState(true);
 
   const relativeImagesPath = "../assets/images/";
+
+  const onLogin = () => {
+    Alert.alert("Credentials", `${login} + ${password}`);
+  };
 
   return (
     <Background>
@@ -64,7 +71,7 @@ export const LoginScreen = () => {
                   onChangeText={setPassword}
                   value={password}
                   placeholder="Пароль"
-                  secureTextEntry={true}
+                  secureTextEntry={hidePassword}
                   keyboardType="url"
                   type="password"
                   style={{
@@ -79,8 +86,17 @@ export const LoginScreen = () => {
                     setFocusedInput(null);
                   }}
                 />
-                <TextShow>Показати</TextShow>
-                <Button>
+                <TouchableOpacity
+                  onPress={() => setHidePassword(!hidePassword)}
+                >
+                  {hidePassword ? (
+                    <TextShow>Показати</TextShow>
+                  ) : (
+                    <TextShow>Сховати</TextShow>
+                  )}
+                </TouchableOpacity>
+
+                <Button onPress={onLogin}>
                   <TextButton>Увійти</TextButton>
                 </Button>
                 <LoginButton>

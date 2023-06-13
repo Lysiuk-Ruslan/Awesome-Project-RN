@@ -6,7 +6,8 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  ScrollView,
+  Alert,
+  TouchableOpacity,
 } from "react-native";
 import styled from "styled-components/native";
 import { AntDesign } from "@expo/vector-icons";
@@ -23,8 +24,13 @@ export const RegistrationScreen = () => {
   const [email, setEmail] = useState(initialState.email);
   const [password, setPassword] = useState(initialState.password);
   const [focusedInput, setFocusedInput] = useState();
+  const [hidePassword, setHidePassword] = useState(true);
 
   const relativeImagesPath = "../assets/images/";
+
+  const onLogin = () => {
+    Alert.alert("Credentials", `${login} + ${email} + ${password}`);
+  };
 
   return (
     <Background>
@@ -39,9 +45,12 @@ export const RegistrationScreen = () => {
       >
         <Registration>
           <RegistrationPhoto>
-            <AddPhoto></AddPhoto>
+            <AddPhoto
+              source={require(`${relativeImagesPath}user-photo.webp`)}
+            />
             <AddIcon>
-              <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
+              {/* <AntDesign name="pluscircleo" size={25} color="#FF6C00" /> */}
+              <AntDesign name="closecircleo" size={25} color="#BDBDBD" />
             </AddIcon>
           </RegistrationPhoto>
           <RegistrationText>Реєстрація</RegistrationText>
@@ -91,7 +100,7 @@ export const RegistrationScreen = () => {
                   onChangeText={setPassword}
                   value={password}
                   placeholder="Пароль"
-                  secureTextEntry={true}
+                  secureTextEntry={hidePassword}
                   keyboardType="url"
                   type="password"
                   style={{
@@ -106,8 +115,17 @@ export const RegistrationScreen = () => {
                     setFocusedInput(null);
                   }}
                 />
-                <TextShow>Показати</TextShow>
-                <Button>
+                <TouchableOpacity
+                  onPress={() => setHidePassword(!hidePassword)}
+                >
+                  {hidePassword ? (
+                    <TextShow>Показати</TextShow>
+                  ) : (
+                    <TextShow>Сховати</TextShow>
+                  )}
+                </TouchableOpacity>
+
+                <Button onPress={onLogin}>
                   <TextButton>Зареєструватися</TextButton>
                 </Button>
                 <LoginButton>
@@ -154,21 +172,22 @@ const RegistrationPhoto = styled.View`
   top: -60px;
 `;
 
-const AddPhoto = styled.ImageBackground`
+const AddPhoto = styled.Image`
   width: 120px;
   height: 120px;
   left: 0px;
   top: 0px;
 
-  background: #f6f6f6;
   border-radius: 16px;
 `;
 
 const AddIcon = styled.View`
-  width: 28px;
-  height: 28px;
+  width: 25px;
+  height: 25px;
   left: 107px;
   top: -39px;
+  background-color: #ffffff;
+  border-radius: 50px;
 `;
 
 const RegistrationText = styled.Text`
