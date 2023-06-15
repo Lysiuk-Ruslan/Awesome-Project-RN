@@ -17,6 +17,7 @@ const initialState = {
   email: "",
   password: "",
   focusedInput: null,
+  avatar: null,
 };
 
 export const RegistrationScreen = () => {
@@ -25,36 +26,53 @@ export const RegistrationScreen = () => {
   const [password, setPassword] = useState(initialState.password);
   const [focusedInput, setFocusedInput] = useState();
   const [hidePassword, setHidePassword] = useState(true);
+  const [avatar, setAvatar] = useState();
 
   const relativeImagesPath = "../assets/images/";
 
   const onLogin = () => {
     Alert.alert("Credentials", `${login} + ${email} + ${password}`);
+    console.log({ login, email, password });
+  };
+
+  const onLoadAvatar = async () => {
+    const avatarImg = await DocumentPicker.getDocumentAsync({
+      type: "image/*",
+    });
+
+    if (avatarImg.type === "cancel") return setAvatar(null);
+
+    setAvatar(avatarImg);
   };
 
   return (
-    <Background>
-      <StatusBar style="auto" />
-      <BackgroundImage
-        source={require(`${relativeImagesPath}bg-img.webp`)}
-        resizeMode="cover"
-        style={{
-          width: Dimensions.get("window").width,
-          height: Dimensions.get("window").height,
-        }}
-      >
-        <Registration>
-          <RegistrationPhoto>
-            <AddPhoto
-              source={require(`${relativeImagesPath}user-photo.webp`)}
-            />
-            <AddIcon>
-              {/* <AntDesign name="pluscircleo" size={25} color="#FF6C00" /> */}
-              <AntDesign name="closecircleo" size={25} color="#BDBDBD" />
-            </AddIcon>
-          </RegistrationPhoto>
-          <RegistrationText>Реєстрація</RegistrationText>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Background>
+        <StatusBar style="auto" />
+        <BackgroundImage
+          source={require(`${relativeImagesPath}bg-img.webp`)}
+          resizeMode="cover"
+          style={{
+            width: Dimensions.get("window").width,
+            height: Dimensions.get("window").height,
+          }}
+        >
+          <Registration>
+            <RegistrationPhoto>
+              <AddPhoto
+                source={require(`${relativeImagesPath}user-photo.webp`)}
+              />
+              <TouchableOpacity onPress={onLoadAvatar}>
+                <AddIcon>
+                  {avatar ? (
+                    <AntDesign name="pluscircleo" size={25} color="#FF6C00" />
+                  ) : (
+                    <AntDesign name="closecircleo" size={25} color="#BDBDBD" />
+                  )}
+                </AddIcon>
+              </TouchableOpacity>
+            </RegistrationPhoto>
+            <RegistrationText>Реєстрація</RegistrationText>
             <RegistrationBox>
               <KeyboardAvoidingView
                 behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -133,10 +151,10 @@ export const RegistrationScreen = () => {
                 </LoginButton>
               </KeyboardAvoidingView>
             </RegistrationBox>
-          </TouchableWithoutFeedback>
-        </Registration>
-      </BackgroundImage>
-    </Background>
+          </Registration>
+        </BackgroundImage>
+      </Background>
+    </TouchableWithoutFeedback>
   );
 };
 

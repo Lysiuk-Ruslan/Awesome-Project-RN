@@ -27,22 +27,23 @@ export const LoginScreen = () => {
 
   const onLogin = () => {
     Alert.alert("Credentials", `${login} + ${password}`);
+    console.log({ login, password });
   };
 
   return (
-    <Background>
-      <StatusBar style="auto" />
-      <BackgroundImage
-        source={require(`${relativeImagesPath}bg-img.webp`)}
-        resizeMode="cover"
-        style={{
-          width: Dimensions.get("window").width,
-          height: Dimensions.get("window").height,
-        }}
-      >
-        <Login>
-          <LoginText>Увійти</LoginText>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Background>
+        <StatusBar style="auto" />
+        <BackgroundImage
+          source={require(`${relativeImagesPath}bg-img.webp`)}
+          resizeMode="cover"
+          style={{
+            width: Dimensions.get("window").width,
+            height: Dimensions.get("window").height,
+          }}
+        >
+          <Login>
+            <LoginText>Увійти</LoginText>
             <LoginBox>
               <KeyboardAvoidingView
                 behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -96,7 +97,7 @@ export const LoginScreen = () => {
                   )}
                 </TouchableOpacity>
 
-                <Button onPress={onLogin}>
+                <Button title="Login" onPress={onLogin}>
                   <TextButton>Увійти</TextButton>
                 </Button>
                 <LoginButton>
@@ -104,10 +105,10 @@ export const LoginScreen = () => {
                 </LoginButton>
               </KeyboardAvoidingView>
             </LoginBox>
-          </TouchableWithoutFeedback>
-        </Login>
-      </BackgroundImage>
-    </Background>
+          </Login>
+        </BackgroundImage>
+      </Background>
+    </TouchableWithoutFeedback>
   );
 };
 
