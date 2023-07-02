@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import styled from "styled-components/native";
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const initialState = {
   login: "",
@@ -27,6 +28,7 @@ export const RegistrationScreen = () => {
   const [focusedInput, setFocusedInput] = useState();
   const [hidePassword, setHidePassword] = useState(true);
   const [avatar, setAvatar] = useState();
+  const navigation = useNavigation();
 
   const relativeImagesPath = "../assets/images/";
 
@@ -34,6 +36,9 @@ export const RegistrationScreen = () => {
     Alert.alert("Credentials", `${login} + ${email} + ${password}`);
     console.log({ login, email, password });
   };
+
+  const onNavigateLogin = () => navigation.navigate("Login");
+  const onNavigateHome = () => navigation.navigate("Home");
 
   const onLoadAvatar = async () => {
     const avatarImg = await DocumentPicker.getDocumentAsync({
@@ -143,10 +148,10 @@ export const RegistrationScreen = () => {
                   )}
                 </TouchableOpacity>
 
-                <Button onPress={onLogin}>
+                <Button onPress={(onLogin, onNavigateHome)}>
                   <TextButton>Зареєструватися</TextButton>
                 </Button>
-                <LoginButton>
+                <LoginButton onPress={onNavigateLogin}>
                   <TextLogin>Вже є акаунт? Увійти</TextLogin>
                 </LoginButton>
               </KeyboardAvoidingView>

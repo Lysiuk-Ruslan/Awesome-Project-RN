@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import styled from "styled-components/native";
+import { useNavigation } from "@react-navigation/native";
 
 const initialState = {
   login: "",
@@ -22,6 +23,7 @@ export const LoginScreen = () => {
   const [password, setPassword] = useState(initialState.password);
   const [focusedInput, setFocusedInput] = useState();
   const [hidePassword, setHidePassword] = useState(true);
+  const navigation = useNavigation();
 
   const relativeImagesPath = "../assets/images/";
 
@@ -29,6 +31,9 @@ export const LoginScreen = () => {
     Alert.alert("Credentials", `${login} + ${password}`);
     console.log({ login, password });
   };
+
+  const onNavigateRegistration = () => navigation.navigate("Registration");
+  const onNavigateHome = () => navigation.navigate("Home");
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -97,10 +102,10 @@ export const LoginScreen = () => {
                   )}
                 </TouchableOpacity>
 
-                <Button title="Login" onPress={onLogin}>
+                <Button title="Login" onPress={(onLogin, onNavigateHome)}>
                   <TextButton>Увійти</TextButton>
                 </Button>
-                <LoginButton>
+                <LoginButton onPress={onNavigateRegistration}>
                   <TextLogin>Немає акаунту? Зареєструватися</TextLogin>
                 </LoginButton>
               </KeyboardAvoidingView>
